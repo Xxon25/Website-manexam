@@ -248,12 +248,24 @@ footer {
 ::-webkit-scrollbar-thumb:hover { background: var(--b300); }
 
 @media(max-width:600px) {
+  .container { padding: 0 16px; }
   .version-num { font-size: 20px; }
   .version-head { flex-direction: column; gap: 8px; }
-  .version-block { padding-left: 28px; }
+  .version-block { padding-left: 24px; margin-bottom: 40px; }
+  .version-dot { left: -7px; }
+  .timeline::before { left: 0; }
   .change-item { padding: 11px 13px; }
-  .cl-filters { top: 56px; }
+  .cl-filters {
+    top: 56px;
+    margin-left: -16px;
+    margin-right: -16px;
+    padding-left: 16px;
+    padding-right: 48px;
+    -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
+    mask-image: linear-gradient(to right, black 85%, transparent 100%);
+  }
   .cl-header { padding: 44px 0 34px; }
+  .version-divider { margin: 0 0 40px; }
 }
 </style>
 </head>
@@ -285,9 +297,9 @@ footer {
     <h1>Riwayat<br>Pembaruan</h1>
     <p class="cl-header-sub">Semua perubahan, perbaikan bug, dan fitur baru didokumentasikan di sini. Setiap entry mencantumkan file yang diubah dan dampaknya.</p>
     <div class="cl-summary">
-      <div class="cl-sum-card"><span class="cl-sum-num">8</span><div class="cl-sum-label">Total Versi</div></div>
-      <div class="cl-sum-card"><span class="cl-sum-num">36</span><div class="cl-sum-label">Bug Fixed</div></div>
-      <div class="cl-sum-card"><span class="cl-sum-num">101</span><div class="cl-sum-label">Fitur Aktif</div></div>
+      <div class="cl-sum-card"><span class="cl-sum-num">9</span><div class="cl-sum-label">Total Versi</div></div>
+      <div class="cl-sum-card"><span class="cl-sum-num">39</span><div class="cl-sum-label">Bug Fixed</div></div>
+      <div class="cl-sum-card"><span class="cl-sum-num">108</span><div class="cl-sum-label">Fitur Aktif</div></div>
       <div class="cl-sum-card"><span class="cl-sum-num">0</span><div class="cl-sum-label">Bug Aktif</div></div>
       <div class="cl-sum-card"><span class="cl-sum-num">99%</span><div class="cl-sum-label">Device Coverage</div></div>
     </div>
@@ -307,8 +319,137 @@ footer {
   <!-- TIMELINE -->
   <div class="timeline">
 
+    <!-- ════ 0.0.3 C ════ -->
+    <div class="version-block latest reveal" id="v0.0.3-C">
+      <div class="version-dot"></div>
+      <div class="version-head">
+        <div class="version-meta">
+          <div class="version-num">0.0.3 C</div>
+          <div class="version-date">May 2026 · versionCode 9</div>
+          <div class="version-title">"Super Mega Security Update &amp; App Pinning Gate"</div>
+        </div>
+        <div class="version-badges">
+          <span class="v-badge v-latest">● Latest</span>
+          <span class="v-badge v-stable">Stable</span>
+          <span class="v-badge v-major">Major Release</span>
+        </div>
+      </div>
+      <div class="change-groups">
+
+        <div class="change-group" data-type="security">
+          <div class="change-group-header">
+            <span class="change-type type-security">🔒 Security</span>
+            <span class="change-count">5 peningkatan keamanan</span>
+          </div>
+          <div class="change-items">
+            <div class="change-item">
+              <div class="change-item-icon">🚦</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Pre-Exam System Check Gate</div>
+                <div class="change-item-desc">Siswa kini wajib melewati gerbang pemeriksaan sistem sebelum masuk ke menu utama. Pengecekan mencakup status internet aktif, status layar terpin (App Pinning LOCKED), dan status Bluetooth nonaktif (OFF) untuk mencegah transfer file curang.</div>
+                <div class="change-item-files"><span class="file-tag">SystemCheckActivity.kt ✨</span><span class="file-tag">activity_system_check.xml ✨</span></div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">🔊</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Volume Lockdown (Paksa Volume Maksimal)</div>
+                <div class="change-item-desc">Aplikasi secara otomatis memaksa volume suara media ke tingkat maksimal saat ujian berlangsung untuk menjamin bel alarm selesai dan audio peringatan pelanggaran tetap terdengar keras. Volume asli dikembalikan saat keluar.</div>
+                <div class="change-item-files"><span class="file-tag">ExamBrowserActivity.kt</span></div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">⏳</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Idle Detection (Peringatan Diam 3 Menit)</div>
+                <div class="change-item-desc">Sistem memantau keaktifan siswa. Jika tidak ada aktivitas sentuhan layar selama 3 menit, aplikasi akan memunculkan dialog peringatan diam dan mencatat event tersebut pada log aktivitas.</div>
+                <div class="change-item-files"><span class="file-tag">ExamBrowserActivity.kt</span></div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">🛡️</div>
+              <div class="change-item-content">
+                <div class="change-item-title">JS &amp; CSS Anti-Cheat Hardening</div>
+                <div class="change-item-desc">Menambahkan injeksi script untuk memblokir context menu (klik kanan), text selection, keydown shortcuts bypass (F12, Ctrl+U, Ctrl+Shift+I, dll), dan drag-and-drop. Serta memaksa CSS <code>user-select: none !important</code> global di WebView.</div>
+                <div class="change-item-files"><span class="file-tag">ExamBrowserActivity.kt</span></div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">🧼</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Session Sandbox (Auto-Sanitize Cache &amp; Storage)</div>
+                <div class="change-item-desc">Setiap kali siswa menyelesaikan ujian atau keluar, aplikasi secara otomatis membersihkan total cache WebView, riwayat penelusuran, semua cookie, dan WebStorage (localStorage/sessionStorage) untuk keamanan total.</div>
+                <div class="change-item-files"><span class="file-tag">ExamBrowserActivity.kt</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="change-group" data-type="fix">
+          <div class="change-group-header">
+            <span class="change-type type-fix">🔧 Bug Fix</span>
+            <span class="change-count">3 perbaikan</span>
+          </div>
+          <div class="change-items">
+            <div class="change-item">
+              <div class="change-item-icon">🔴</div>
+              <div class="change-item-content">
+                <div class="change-item-title">[CRITICAL] Fix Dialog Blur Cascade (Auto-Kick Bug)</div>
+                <div class="change-item-desc">Memperbaiki bug kritis di mana ketika dialog peringatan keamanan (seperti dialog alarm) muncul, fokus aplikasi berpindah ke dialog dan memicu event <code>onWindowFocusChanged(false)</code> berulang-ulang, menghasilkan violation <code>WINDOW_BLUR</code> tak terbatas hingga siswa ter-kick otomatis. Kini menggunakan flag proteksi dialog untuk mengabaikan violation sekunder.</div>
+                <div class="change-item-files"><span class="file-tag">ExamBrowserActivity.kt</span></div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">🟠</div>
+              <div class="change-item-content">
+                <div class="change-item-title">[HIGH] Integrasi onBackPressed modern di semua Activity</div>
+                <div class="change-item-desc">Migrasi total penanganan tombol kembali menggunakan <code>OnBackPressedCallback</code> di seluruh Activity aktif guna menjamin tombol kembali diabaikan dengan aman pada Android 13 ke atas.</div>
+                <div class="change-item-files"><span class="file-tag">MainActivity.kt</span><span class="file-tag">ExamBrowserActivity.kt</span><span class="file-tag">SystemCheckActivity.kt</span></div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">🟡</div>
+              <div class="change-item-content">
+                <div class="change-item-title">[MEDIUM] Penghapusan total dependensi Device Owner Kiosk</div>
+                <div class="change-item-desc">Menghilangkan kerumitan setup ADB Device Owner (Kiosk mode) di sekolah dengan beralih sepenuhnya ke native Screen Pinning API (<code>startLockTask()</code>) yang dikombinasikan dengan gerbang cek sistem yang andal.</div>
+                <div class="change-item-files"><span class="file-tag">SecurityManager.kt</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="change-group" data-type="compat">
+          <div class="change-group-header">
+            <span class="change-type type-compat">📱 Kompatibilitas</span>
+            <span class="change-count">2 peningkatan</span>
+          </div>
+          <div class="change-items">
+            <div class="change-item">
+              <div class="change-item-icon">🔗</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Interactive Badge Actions</div>
+                <div class="change-item-desc">Badge status di gerbang pemeriksaan sistem kini interaktif. Pengguna cukup mengetuk badge untuk langsung membuka setelan sistem (misalnya membuka Settings Bluetooth untuk menonaktifkannya, atau memicu Dialog Pin Layar).</div>
+                <div class="change-item-files"><span class="file-tag">SystemCheckActivity.kt</span></div>
+              </div>
+            </div>
+            <div class="change-item">
+              <div class="change-item-icon">📱</div>
+              <div class="change-item-content">
+                <div class="change-item-title">Overhaul Struktur Menu Utama</div>
+                <div class="change-item-desc">Pemisahan fungsionalitas yang lebih jelas: menu input URL, scan QR, panduan cara pakai, informasi developer, status sistem, dan tombol keluar kini dikelompokkan dengan rapi di MainActivity.</div>
+                <div class="change-item-files"><span class="file-tag">MainActivity.kt</span><span class="file-tag">activity_main.xml ✨</span></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <hr class="version-divider">
+
     <!-- ════ 0.0.3 B ════ -->
-    <div class="version-block latest reveal" id="v0.0.3-B">
+    <div class="version-block reveal" id="v0.0.3-B">
       <div class="version-dot"></div>
       <div class="version-head">
         <div class="version-meta">
@@ -317,7 +458,6 @@ footer {
           <div class="version-title">"QR Encryption &amp; Android 14 Stability"</div>
         </div>
         <div class="version-badges">
-          <span class="v-badge v-latest">● Latest</span>
           <span class="v-badge v-stable">Stable</span>
           <span class="v-badge v-major">Breaking Change</span>
         </div>
@@ -710,18 +850,42 @@ function filterAll(btn) {
   btn.classList.add('active');
   document.querySelectorAll('.change-group').forEach(g => g.style.display = '');
   document.querySelectorAll('.version-block').forEach(b => b.style.display = '');
+  document.querySelectorAll('.version-divider').forEach(d => d.style.display = '');
 }
 
 function filterType(type, btn) {
   document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
   btn.classList.add('active');
-  document.querySelectorAll('.version-block').forEach(block => {
+  
+  const blocks = document.querySelectorAll('.version-block');
+  const visibleBlocks = [];
+  
+  blocks.forEach(block => {
     const groups = block.querySelectorAll(`.change-group[data-type="${type}"]`);
     const hasMatch = groups.length > 0;
     block.style.display = hasMatch ? '' : 'none';
     block.querySelectorAll('.change-group').forEach(g => {
       g.style.display = g.dataset.type === type ? '' : 'none';
     });
+    if (hasMatch) {
+      visibleBlocks.push(block);
+    }
+  });
+
+  const dividers = document.querySelectorAll('.version-divider');
+  dividers.forEach(d => d.style.display = 'none');
+  
+  visibleBlocks.forEach((block, index) => {
+    if (index < visibleBlocks.length - 1) {
+      let next = block.nextElementSibling;
+      while (next && !next.classList.contains('version-block')) {
+        if (next.classList.contains('version-divider')) {
+          next.style.display = '';
+          break;
+        }
+        next = next.nextElementSibling;
+      }
+    }
   });
 }
 </script>
