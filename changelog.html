@@ -347,8 +347,6 @@ footer {
               <div class="change-item-content">
                 <div class="change-item-title">Gerbang Pemeriksaan Sistem Sebelum Ujian</div>
                 <div class="change-item-desc">Siswa wajib melewati 3 pemeriksaan otomatis sebelum menu ujian terbuka: koneksi internet aktif, layar dalam mode kunci (App Pinning), dan Bluetooth nonaktif. Jika salah satu tidak terpenuhi, tombol mulai diblokir.</div>
-                <div class="change-item-code">val isReady = isInternetOk && isPinnedOk && isBluetoothOk</div>
-                <div class="change-item-files"><span class="file-tag">SystemCheckActivity.kt</span><span class="file-tag">SecurityManager.kt</span></div>
               </div>
             </div>
             <div class="change-item">
@@ -356,8 +354,6 @@ footer {
               <div class="change-item-content">
                 <div class="change-item-title">Volume Dikunci Maksimal Saat Ujian</div>
                 <div class="change-item-desc">Aplikasi secara otomatis menaikkan volume ke tingkat tertinggi saat ujian dimulai, memastikan bel selesai dan peringatan pelanggaran selalu terdengar. Volume dikembalikan ke semula setelah sesi berakhir.</div>
-                <div class="change-item-code">audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolume, 0)</div>
-                <div class="change-item-files"><span class="file-tag">ExamBrowserActivity.kt</span></div>
               </div>
             </div>
             <div class="change-item">
@@ -365,8 +361,6 @@ footer {
               <div class="change-item-content">
                 <div class="change-item-title">Deteksi Siswa Pasif (Idle 3 Menit)</div>
                 <div class="change-item-desc">Jika siswa tidak menyentuh layar selama 3 menit, peringatan otomatis muncul dan kejadian ini dicatat. Mencegah siswa meninggalkan layar tanpa pengawasan selama ujian berlangsung.</div>
-                <div class="change-item-code">idleHandler.postDelayed(idleRunnable, 180000)</div>
-                <div class="change-item-files"><span class="file-tag">ExamBrowserActivity.kt</span></div>
               </div>
             </div>
             <div class="change-item">
@@ -374,8 +368,6 @@ footer {
               <div class="change-item-content">
                 <div class="change-item-title">Pemblokiran Aksi Curang di Dalam Ujian</div>
                 <div class="change-item-desc">Klik kanan, seleksi teks, salin-tempel, dan berbagai shortcut keyboard diblokir total di dalam halaman ujian. Siswa tidak bisa menyalin soal atau jawaban melalui cara apapun.</div>
-                <div class="change-item-code">webView.setOnLongClickListener { true } // user-select: none CSS injected</div>
-                <div class="change-item-files"><span class="file-tag">ExamBrowserActivity.kt</span></div>
               </div>
             </div>
             <div class="change-item">
@@ -383,8 +375,6 @@ footer {
               <div class="change-item-content">
                 <div class="change-item-title">Pembersihan Data Otomatis Setelah Ujian</div>
                 <div class="change-item-desc">Semua jejak sesi — riwayat, cache, dan data penyimpanan lokal — dihapus bersih secara otomatis setiap kali siswa keluar dari ujian. Tidak ada data sesi yang tersisa di perangkat.</div>
-                <div class="change-item-code">webView.clearCache(true); CookieManager.getInstance().removeAllCookies(null)</div>
-                <div class="change-item-files"><span class="file-tag">ExamBrowserActivity.kt</span><span class="file-tag">FinishActivity.kt</span></div>
               </div>
             </div>
           </div>
@@ -401,8 +391,6 @@ footer {
               <div class="change-item-content">
                 <div class="change-item-title">[CRITICAL] Siswa Ter-Kick Otomatis Saat Dialog Peringatan Muncul</div>
                 <div class="change-item-desc">Memperbaiki bug kritis di mana setiap kali dialog peringatan muncul, sistem keliru mendeteksinya sebagai pelanggaran keluar aplikasi — memicu rangkaian kick otomatis yang tidak bisa dihentikan. Sekarang sudah diperbaiki sepenuhnya dengan flag status dialog.</div>
-                <div class="change-item-code">if (isShowingDialog || isTerminating) return // ignore window blur violation</div>
-                <div class="change-item-files"><span class="file-tag">ExamBrowserActivity.kt</span></div>
               </div>
             </div>
             <div class="change-item">
@@ -410,8 +398,6 @@ footer {
               <div class="change-item-content">
                 <div class="change-item-title">[HIGH] Tombol Kembali Tembus di Android 13+</div>
                 <div class="change-item-desc">Pada Android 13 ke atas, tombol kembali fisik maupun gesture berpotensi menembus pertahanan aplikasi di beberapa layar. Sekarang sudah diblokir penuh di seluruh bagian aplikasi tanpa terkecuali menggunakan dispatcher modern.</div>
-                <div class="change-item-code">onBackPressedDispatcher.addCallback(this, callback)</div>
-                <div class="change-item-files"><span class="file-tag">ExamBrowserActivity.kt</span><span class="file-tag">MainActivity.kt</span></div>
               </div>
             </div>
             <div class="change-item">
@@ -419,8 +405,6 @@ footer {
               <div class="change-item-content">
                 <div class="change-item-title">[MEDIUM] Migrasi Penuh ke Screen Pinning Native</div>
                 <div class="change-item-desc">Menghilangkan metode lama yang butuh konfigurasi manual di setiap perangkat sekolah. Kini menggunakan fitur kunci layar bawaan Android yang lebih stabil, tanpa setup rumit, dan tetap efektif mengunci siswa di dalam aplikasi.</div>
-                <div class="change-item-code">isPinnedOk = activityManager.lockTaskModeState != LOCK_TASK_MODE_NONE</div>
-                <div class="change-item-files"><span class="file-tag">SystemCheckActivity.kt</span><span class="file-tag">SecurityManager.kt</span></div>
               </div>
             </div>
           </div>
@@ -437,8 +421,6 @@ footer {
               <div class="change-item-content">
                 <div class="change-item-title">Tombol Status yang Bisa Diklik Langsung</div>
                 <div class="change-item-desc">Indikator status (Bluetooth, Kunci Layar, dll) di halaman pemeriksaan kini bisa diketuk langsung untuk membuka pengaturan yang relevan — tidak perlu cari-cari menu setelan secara manual.</div>
-                <div class="change-item-code">startActivity(Intent(android.provider.Settings.ACTION_BLUETOOTH_SETTINGS))</div>
-                <div class="change-item-files"><span class="file-tag">SystemCheckActivity.kt</span></div>
               </div>
             </div>
             <div class="change-item">
@@ -446,7 +428,6 @@ footer {
               <div class="change-item-content">
                 <div class="change-item-title">Tampilan Ulang Menu Utama</div>
                 <div class="change-item-desc">Menu utama dirancang ulang menjadi lebih bersih dan mudah dipahami. Setiap tombol memiliki fungsi yang jelas — mulai dari scan QR, input link, panduan, hingga pemeriksaan status sistem.</div>
-                <div class="change-item-files"><span class="file-tag">MainActivity.kt</span><span class="file-tag">activity_main.xml</span></div>
               </div>
             </div>
           </div>
@@ -463,16 +444,13 @@ footer {
               <div class="change-item-content">
                 <div class="change-item-title">Desain Ulang Total Tampilan Aplikasi</div>
                 <div class="change-item-desc">Seluruh tampilan aneh dan tidak konsisten dari versi lama telah dihapus dan digantikan dengan desain baru yang seragam, modern, dan konsisten di semua layar aplikasi.</div>
-                <div class="change-item-files"><span class="file-tag">res/layout/*.xml</span></div>
               </div>
             </div>
             <div class="change-item">
               <div class="change-item-icon">⚡</div>
               <div class="change-item-content">
                 <div class="change-item-title">Layanan Latar Belakang Dihapus</div>
-                <div class="change-item-desc">Layanan pemantau yang berjalan tersembunyi (SecurityService, menyebabkan notifikasi permanen dan baterai boros) telah dihapus. Pengawasan kini lebih efisien dan berjalan langsung saat ujian aktif.</div>
-                <div class="change-item-code">// Removed: SecurityService.kt & foregroundServiceType dataSync declaration</div>
-                <div class="change-item-files"><span class="file-tag">AndroidManifest.xml</span><span class="file-tag">SecurityService.kt ❌</span></div>
+                <div class="change-item-desc">Layanan pemantau yang berjalan tersembunyi (menyebabkan notifikasi permanen dan baterai boros) telah dihapus. Pengawasan kini lebih efisien dan berjalan langsung saat ujian aktif.</div>
               </div>
             </div>
             <div class="change-item">
@@ -480,7 +458,6 @@ footer {
               <div class="change-item-content">
                 <div class="change-item-title">Komponen Keamanan Lama Dikonsolidasi</div>
                 <div class="change-item-desc">Beberapa modul keamanan dari versi sebelumnya telah digabungkan menjadi satu sistem pengawasan terpadu yang lebih ringan, stabil, dan tidak boros sumber daya.</div>
-                <div class="change-item-files"><span class="file-tag">SecurityManager.kt</span></div>
               </div>
             </div>
           </div>
@@ -516,9 +493,7 @@ footer {
               <div class="change-item-icon">🔐</div>
               <div class="change-item-content">
                 <div class="change-item-title">Enkripsi AES-256-CBC pada QR ujian</div>
-                <div class="change-item-desc">Isi QR sekarang dienkripsi menggunakan AES-256-CBC. Hanya APK MAN 1 Exam Browser yang memiliki kunci untuk mendekripsi — scanner lain (kamera bawaan, Google Lens, WhatsApp, dll) hanya akan membaca deretan karakter acak tanpa makna, sehingga siswa tidak bisa mengakses link ujian dari luar aplikasi.</div>
-                <div class="change-item-code">AES/CBC/PKCS5Padding — 256-bit key, URL-safe Base64 output</div>
-                <div class="change-item-files"><span class="file-tag">ScanActivity.kt</span><span class="file-tag">Admin Panel v3 ✨</span></div>
+                <div class="change-item-desc">Isi QR sekarang dienkripsi menggunakan AES-256-CBC. Hanya Aplikasi MAN 1 Exam Browser yang memiliki kunci untuk mendekripsi — scanner lain (kamera bawaan, Google Lens, WhatsApp, dll) hanya akan membaca deretan karakter acak tanpa makna, sehingga siswa tidak bisa mengakses link ujian dari luar aplikasi.</div>
               </div>
             </div>
             <div class="change-item">
@@ -533,7 +508,6 @@ footer {
               <div class="change-item-content">
                 <div class="change-item-title">Admin Panel berbasis web — generate QR dari browser</div>
                 <div class="change-item-desc">Admin Panel kini fully web-based. Guru bisa generate QR ujian langsung dari browser tanpa perlu install apapun. Panel menangani enkripsi, encoding URL-safe Base64, dan render QR secara otomatis.</div>
-                <div class="change-item-files"><span class="file-tag">Admin Panel v3 ✨</span></div>
               </div>
             </div>
           </div>
@@ -547,27 +521,22 @@ footer {
             <div class="change-item">
               <div class="change-item-icon">🔴</div>
               <div class="change-item-content">
-                <div class="change-item-title">[CRITICAL] FC saat scan QR — Base64 mismatch APK vs Admin Panel</div>
-                <div class="change-item-desc">Admin Panel v2 menghasilkan Base64 standar yang mengandung karakter <code>+</code>, <code>/</code>, dan <code>=</code>. APK men-decode dengan mode yang tidak bisa membaca karakter tersebut, menyebabkan payload AES corrupt dan app langsung crash. Keduanya sekarang sinkron menggunakan URL-safe Base64.</div>
-                <div class="change-item-code">Base64.DEFAULT → Base64.URL_SAFE or Base64.NO_PADDING</div>
-                <div class="change-item-files"><span class="file-tag">ScanActivity.kt</span></div>
+                <div class="change-item-title">[CRITICAL] Aplikasi crash saat scan QR — data QR mismatch</div>
+                <div class="change-item-desc">Format encoding QR antara Admin Panel dan Aplikasi tidak sinkron, menyebabkan data QR rusak dan aplikasi langsung crash. Keduanya sekarang sinkron menggunakan format yang sama.</div>
               </div>
             </div>
             <div class="change-item">
               <div class="change-item-icon">🔴</div>
               <div class="change-item-content">
-                <div class="change-item-title">[CRITICAL] FC setelah scan QR di Android 14</div>
-                <div class="change-item-desc">Pemanggilan <code>startForeground()</code> 2-argumen menyebabkan crash di Android 14 (API 34) karena wajib deklarasi tipe service secara eksplisit. Fix: migrasi ke varian 3-argumen.</div>
-                <div class="change-item-code">startForeground(id, notif) → startForeground(id, notif, FOREGROUND_SERVICE_TYPE_DATA_SYNC)</div>
-                <div class="change-item-files"><span class="file-tag">SecurityService.kt</span></div>
+                <div class="change-item-title">[CRITICAL] Aplikasi crash setelah scan QR di Android 14</div>
+                <div class="change-item-desc">Layanan latar belakang tidak kompatibel dengan Android 14 yang memperketat aturan deklarasi tipe layanan. Sudah diperbaiki dan kompatibel dengan Android 14 ke atas.</div>
               </div>
             </div>
             <div class="change-item">
               <div class="change-item-icon">🟠</div>
               <div class="change-item-content">
-                <div class="change-item-title">[HIGH] SecurityService berhenti setelah scan berhasil</div>
-                <div class="change-item-desc">Race condition antara <code>onDestroy</code> ScanActivity dan <code>startService</code> menyebabkan service tidak jalan stabil setelah navigasi ke ExamActivity. Service kini di-start ulang di <code>onCreate</code> ExamActivity.</div>
-                <div class="change-item-files"><span class="file-tag">SecurityService.kt</span><span class="file-tag">ExamActivity.kt</span></div>
+                <div class="change-item-title">[HIGH] Sistem pengawasan berhenti setelah scan berhasil</div>
+                <div class="change-item-desc">Setelah QR berhasil dipindai dan siswa masuk ke halaman ujian, layanan pengawasan keamanan kadang berhenti berjalan. Sekarang sudah dipastikan tetap aktif sepanjang sesi ujian.</div>
               </div>
             </div>
           </div>
@@ -582,8 +551,7 @@ footer {
               <div class="change-item-icon">⚠️</div>
               <div class="change-item-content">
                 <div class="change-item-title">QR dari Admin Panel v2 tidak kompatibel</div>
-                <div class="change-item-desc">APK v0.0.3B ke atas hanya bisa membaca QR yang di-generate dari Admin Panel v3 (URL-safe Base64). Semua QR lama harus di-generate ulang.</div>
-                <div class="change-item-files"><span class="file-tag">Admin Panel v3 ✨</span></div>
+                <div class="change-item-desc">Aplikasi versi ini hanya bisa membaca QR yang dibuat dari Admin Panel terbaru (v3). Semua QR yang pernah dibuat sebelumnya harus dibuat ulang.</div>
               </div>
             </div>
           </div>
@@ -605,14 +573,13 @@ footer {
               <div class="change-item-icon">🔗</div>
               <div class="change-item-content">
                 <div class="change-item-title">Payload pakai URL-safe Base64 tanpa padding</div>
-                <div class="change-item-desc">Karakter <code>+</code>, <code>/</code>, dan <code>=</code> tidak lagi muncul di payload QR. Kompatibel penuh dengan APK v0.0.3B ke atas.</div>
-                <div class="change-item-code">btoa() → base64url() — no +, /, = chars</div>
+                <div class="change-item-desc">Karakter khusus tidak lagi muncul di payload QR. Kompatibel penuh dengan aplikasi versi ini ke atas.</div>
               </div>
             </div>
             <div class="change-item">
               <div class="change-item-icon">🏷️</div>
               <div class="change-item-content">
-                <div class="change-item-title">Label format payload diupdate ke <code>AES-Base64-URLSafe</code></div>
+                <div class="change-item-title">Label format payload diupdate ke AES-Base64-URLSafe</div>
                 <div class="change-item-desc">UI Admin Panel kini menampilkan label format yang akurat sesuai encoding yang digunakan.</div>
               </div>
             </div>
@@ -644,14 +611,14 @@ footer {
             <span class="change-count">8 peningkatan keamanan</span>
           </div>
           <div class="change-items">
-            <div class="change-item"><div class="change-item-icon">⌨️</div><div class="change-item-content"><div class="change-item-title">Anti-Custom Keyboard — Blokir keyboard pihak ketiga</div><div class="change-item-desc">Deteksi apakah keyboard yang aktif bukan keyboard bawaan perangkat. Menggunakan Settings.Secure.DEFAULT_INPUT_METHOD dan whitelist package keyboard sistem (Samsung, MIUI, AOSP, Gboard, ColorOS, dll). Jika custom keyboard terdeteksi, ujian tidak bisa dimulai.</div><div class="change-item-code">checkCustomKeyboard() → blocked if currentIme ∉ allowedKeyboards</div><div class="change-item-files"><span class="file-tag">SecurityGuard.kt ✨</span><span class="file-tag">ScanActivity.kt</span><span class="file-tag">ExamActivity.kt</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">📋</div><div class="change-item-content"><div class="change-item-title">Clipboard Wiper — Auto-wipe di onResume &amp; onWindowFocusChanged</div><div class="change-item-desc">ClipboardGuard otomatis menghapus isi clipboard saat Activity kembali ke foreground atau mendapat fokus. Continuous guard listener juga wipe setiap kali ada data baru masuk clipboard selama ujian berlangsung.</div><div class="change-item-code">lifecycle.addObserver(clipboardGuard) + addPrimaryClipChangedListener</div><div class="change-item-files"><span class="file-tag">ClipboardGuard.kt ✨</span><span class="file-tag">ScanActivity.kt</span><span class="file-tag">ExamActivity.kt</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">♿</div><div class="change-item-content"><div class="change-item-title">Accessibility Service Blocker</div><div class="change-item-desc">Malicious app pakai Accessibility Service untuk baca teks layar atau simulasi tap. Cek via AccessibilityManager.getEnabledAccessibilityServiceList(FEEDBACK_ALL_MASK). Jika ada non-system accessibility service aktif, ujian ditolak.</div><div class="change-item-code">am.getEnabledAccessibilityServiceList() → filter non-system packages</div><div class="change-item-files"><span class="file-tag">SecurityGuard.kt ✨</span><span class="file-tag">ScanActivity.kt</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">🖥️</div><div class="change-item-content"><div class="change-item-title">Secondary Display &amp; OTG Monitor — Blokir screencast real-time</div><div class="change-item-desc">DisplayGuard menggunakan DisplayManager.DisplayListener untuk mendeteksi display sekunder (HDMI, Miracast, Chromecast). Monitoring real-time selama ujian. Jika aktif saat ujian: violation dicatat langsung.</div><div class="change-item-code">displayManager.displays.any { it.displayId != 0 } → lock exam</div><div class="change-item-files"><span class="file-tag">DisplayGuard.kt ✨</span><span class="file-tag">ExamActivity.kt</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">🔐</div><div class="change-item-content"><div class="change-item-title">VPN &amp; Proxy Detection — Enhanced, cek real-time</div><div class="change-item-desc">Deteksi VPN via NetworkCapabilities.hasTransport(TRANSPORT_VPN) ditambah HTTP proxy via System.getProperty. Re-check saat onResume — jika user nyalain VPN setelah layar dibuka, tetap ter-detect dan dicatat sebagai violation.</div><div class="change-item-code">TRANSPORT_VPN || http.proxyHost != null → violation "vpn_active"</div><div class="change-item-files"><span class="file-tag">SecurityGuard.kt ✨</span><span class="file-tag">ExamActivity.kt</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">📌</div><div class="change-item-content"><div class="change-item-title">SSL Certificate Pinning — Blokir MitM attack</div><div class="change-item-desc">ExamCertificatePinner menggunakan OkHttp CertificatePinner untuk mengikat koneksi ke SHA-256 fingerprint certificate server ujian. Jika seseorang menginstal CA palsu (Burp, Charles, HTTP Toolkit), koneksi langsung gagal.</div><div class="change-item-code">CertificatePinner.Builder().add(domain, "sha256/...").build()</div><div class="change-item-files"><span class="file-tag">ExamCertificatePinner.kt ✨</span><span class="file-tag">network_security_config.xml ✨</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">🛡️</div><div class="change-item-content"><div class="change-item-title">Pre-exam Security Gate — Pipeline cek sebelum tombol aktif</div><div class="change-item-desc">SecurityGuard.runAllChecks() menjalankan semua cek sebagai satu pipeline sebelum ExamActivity dibuka. Jika gagal, dialog blocking muncul dengan kode error dan instruksi perbaikan.</div><div class="change-item-code">val r = guard.runAllChecks(); if (!r.passed) showBlockDialog(r.reason, r.code)</div><div class="change-item-files"><span class="file-tag">SecurityGuard.kt ✨</span><span class="file-tag">ScanActivity.kt</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">📲</div><div class="change-item-content"><div class="change-item-title">AndroidManifest.xml — Permission baru untuk security features</div><div class="change-item-desc">Ditambahkan CHANGE_NETWORK_STATE (backup VPN detection) dan network_security_config untuk domain pinning. Tidak ada permission yang memerlukan user approval di runtime.</div><div class="change-item-files"><span class="file-tag">AndroidManifest.xml</span><span class="file-tag">res/xml/network_security_config.xml ✨</span></div></div></div>
+            <div class="change-item"><div class="change-item-icon">⌨️</div><div class="change-item-content"><div class="change-item-title">Anti-Custom Keyboard — Blokir keyboard pihak ketiga</div><div class="change-item-desc">Deteksi apakah keyboard yang aktif bukan keyboard bawaan perangkat. Sistem hanya mengizinkan keyboard bawaan perangkat (Samsung, MIUI, AOSP, Gboard, ColorOS, dll). Jika custom keyboard terdeteksi, ujian tidak bisa dimulai.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">📋</div><div class="change-item-content"><div class="change-item-title">Clipboard Wiper — Penghapusan otomatis isi clipboard</div><div class="change-item-desc">Clipboard otomatis dihapus saat aplikasi kembali aktif atau mendapat fokus. Pembersihan berulang juga berjalan setiap kali ada data baru masuk clipboard selama ujian berlangsung.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">♿</div><div class="change-item-content"><div class="change-item-title">Accessibility Service Blocker</div><div class="change-item-desc">Aplikasi berbahaya sering menyalahgunakan fitur Accessibility untuk membaca isi layar atau mensimulasikan sentuhan. Jika ada layanan aksesibilitas yang bukan bawaan sistem aktif, ujian ditolak.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">🖥️</div><div class="change-item-content"><div class="change-item-title">Secondary Display &amp; OTG Monitor — Blokir proyeksi layar</div><div class="change-item-desc">Aplikasi mendeteksi secara real-time jika ada monitor eksternal, HDMI, Miracast, atau Chromecast yang terhubung. Jika terdeteksi aktif saat ujian, langsung dicatat sebagai pelanggaran.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">🔐</div><div class="change-item-content"><div class="change-item-title">VPN &amp; Proxy Detection — Deteksi VPN secara real-time</div><div class="change-item-desc">Deteksi VPN dan proxy dijalankan ulang setiap kali aplikasi kembali aktif. Jika siswa menyalakan VPN setelah layar ujian terbuka pun tetap terdeteksi.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">📌</div><div class="change-item-content"><div class="change-item-title">SSL Certificate Pinning — Pengamanan koneksi internet</div><div class="change-item-desc">Koneksi ke server ujian diperkuat agar tidak bisa disadap menggunakan proxy. Jika seseorang memasang sertifikat palsu di perangkat, koneksi akan langsung gagal.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">🛡️</div><div class="change-item-content"><div class="change-item-title">Pre-exam Security Gate — Gerbang pengecekan sebelum ujian</div><div class="change-item-desc">Semua pengecekan keamanan dijalankan sebagai satu kesatuan sebelum halaman ujian dibuka. Jika gagal, dialog peringatan muncul dengan instruksi perbaikan.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">📲</div><div class="change-item-content"><div class="change-item-title">Izin Sistem Tambahan untuk Fitur Keamanan</div><div class="change-item-desc">Izin sistem tambahan ditambahkan untuk mendukung fitur deteksi VPN dan pengamanan koneksi.</div></div></div>
           </div>
         </div>
         <div class="change-group" data-type="compat">
@@ -660,7 +627,7 @@ footer {
             <span class="change-count">1 pembaruan</span>
           </div>
           <div class="change-items">
-            <div class="change-item"><div class="change-item-icon">⚙️</div><div class="change-item-content"><div class="change-item-title">Keyboard whitelist — Support 8 ROM populer Indonesia</div><div class="change-item-desc">Daftar keyboard sistem yang diizinkan mencakup: Samsung (OneUI), MIUI (Xiaomi), ColorOS (Oppo/Realme), OriginOS (Vivo), EMUI (Huawei), AOSP, dan Gboard. Mudah dikustomisasi oleh admin.</div><div class="change-item-files"><span class="file-tag">SecurityGuard.kt</span></div></div></div>
+            <div class="change-item"><div class="change-item-icon">⚙️</div><div class="change-item-content"><div class="change-item-title">Keyboard whitelist — Support 8 ROM populer Indonesia</div><div class="change-item-desc">Daftar keyboard sistem yang diizinkan mencakup semua ROM populer: Samsung OneUI, MIUI, ColorOS, OriginOS, EMUI, AOSP, dan Gboard.</div></div></div>
           </div>
         </div>
       </div>
@@ -683,16 +650,16 @@ footer {
         <div class="change-group" data-type="fix">
           <div class="change-group-header"><span class="change-type type-fix">🔧 Bug Fix</span><span class="change-count">3 perbaikan</span></div>
           <div class="change-items">
-            <div class="change-item"><div class="change-item-icon">🔴</div><div class="change-item-content"><div class="change-item-title">[CRITICAL] Tombol mulai ujian tidak merespons di beberapa device</div><div class="change-item-desc">onClick listener pada tombol "Mulai Ujian" gagal terpasang karena race condition antara inisialisasi view dan binding state. Fix: pindahkan setOnClickListener ke setelah semua state siap di onResume().</div><div class="change-item-files"><span class="file-tag">ScanActivity.kt</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">🟠</div><div class="change-item-content"><div class="change-item-title">[HIGH] Tombol "Kunci Layar" bisa diklik berkali-kali</div><div class="change-item-desc">Tidak ada debounce pada tombol pin layar, memungkinkan startLockTask() dipanggil duplikat dan menyebabkan IllegalStateException di beberapa ROM. Fix: disable tombol setelah tap pertama hingga status pin terkonfirmasi.</div><div class="change-item-files"><span class="file-tag">ScanActivity.kt</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">🟡</div><div class="change-item-content"><div class="change-item-title">[MEDIUM] Tombol "Via Link" tidak reset setelah error validasi</div><div class="change-item-desc">Setelah URL invalid dimasukkan, dialog EditText tidak di-clear, menyebabkan kebingungan saat input ulang. Fix: reset field dan fokus setelah pesan error ditampilkan.</div><div class="change-item-files"><span class="file-tag">ScanActivity.kt</span><span class="file-tag">activity_scan.xml</span></div></div></div>
+            <div class="change-item"><div class="change-item-icon">🔴</div><div class="change-item-content"><div class="change-item-title">[CRITICAL] Tombol mulai ujian tidak merespons di beberapa perangkat</div><div class="change-item-desc">Tombol "Mulai Ujian" tidak bisa ditekan di beberapa perangkat karena ada konflik waktu inisialisasi tampilan. Sudah diperbaiki dan tombol kini berfungsi normal di semua perangkat.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">🟠</div><div class="change-item-content"><div class="change-item-title">[HIGH] Tombol "Kunci Layar" bisa diklik berkali-kali</div><div class="change-item-desc">Tidak ada perlindungan double-tap pada tombol kunci layar, menyebabkan error di beberapa perangkat jika ditekan lebih dari sekali. Tombol sekarang dinonaktifkan setelah tap pertama sampai status kunci terkonfirmasi.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">🟡</div><div class="change-item-content"><div class="change-item-title">[MEDIUM] Kolom input link tidak reset setelah error</div><div class="change-item-desc">Setelah memasukkan URL yang tidak valid, kolom input tidak dikosongkan sehingga membingungkan saat input ulang. Sekarang kolom direset otomatis setelah pesan error ditampilkan.</div></div></div>
           </div>
         </div>
         <div class="change-group" data-type="security">
           <div class="change-group-header"><span class="change-type type-security">🔒 Security</span><span class="change-count">2 peningkatan</span></div>
           <div class="change-items">
-            <div class="change-item"><div class="change-item-icon">🛡️</div><div class="change-item-content"><div class="change-item-title">Daftar app terlarang diperbarui — +12 package baru</div><div class="change-item-desc">Menambahkan 12 package baru ke blocklist: aplikasi AI generatif terbaru (Gemini, Copilot mobile), browser tambahan, dan tools remote access yang sebelumnya lolos deteksi.</div><div class="change-item-code">packageList.size: 50 → 62 package</div><div class="change-item-files"><span class="file-tag">SecurityService.kt</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">🔐</div><div class="change-item-content"><div class="change-item-title">FLAG_SECURE ditambahkan ke semua window Activity</div><div class="change-item-desc">Sebelumnya hanya ExamActivity yang memiliki FLAG_SECURE. SplashActivity, ScanActivity, dan DoneActivity sekarang juga memasang flag ini untuk mencegah screenshot dan screen recording di seluruh alur aplikasi.</div><div class="change-item-files"><span class="file-tag">SplashActivity.kt</span><span class="file-tag">ScanActivity.kt</span><span class="file-tag">DoneActivity.kt</span></div></div></div>
+            <div class="change-item"><div class="change-item-icon">🛡️</div><div class="change-item-content"><div class="change-item-title">Daftar aplikasi terlarang diperbarui — +12 aplikasi baru</div><div class="change-item-desc">Menambahkan 12 aplikasi ke daftar blokir: aplikasi AI generatif terbaru (termasuk Gemini dan Copilot mobile), browser tambahan, dan tools akses jarak jauh yang sebelumnya lolos deteksi. Total menjadi 62 aplikasi.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">🔐</div><div class="change-item-content"><div class="change-item-title">Pemblokiran screenshot diperluas ke semua layar</div><div class="change-item-desc">Sebelumnya hanya layar ujian yang terproteksi dari screenshot dan perekaman layar. Sekarang semua layar aplikasi — termasuk splash, setup, dan halaman selesai — juga ikut terlindungi.</div></div></div>
           </div>
         </div>
       </div>
@@ -715,22 +682,21 @@ footer {
         <div class="change-group" data-type="break">
           <div class="change-group-header"><span class="change-type type-break">⚠ Breaking</span><span class="change-count">2 perubahan</span></div>
           <div class="change-items">
-            <div class="change-item"><div class="change-item-icon">🗑️</div><div class="change-item-content"><div class="change-item-title">AdminReceiver.kt dihapus total</div><div class="change-item-desc">Dead code — tidak pernah didaftarkan di manifest, tidak dipanggil dari manapun. Menghapus dependency android.app.admin yang tidak perlu.</div><div class="change-item-files"><span class="file-tag">AdminReceiver.kt ❌</span><span class="file-tag">device_admin.xml ❌</span><span class="file-tag">strings.xml</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">🏗️</div><div class="change-item-content"><div class="change-item-title">onBackPressed() diganti OnBackPressedCallback di semua Activity</div><div class="change-item-desc">API deprecated sejak Android 13 (API 33). Migrasi ke dispatcher-based callback yang lebih aman dan future-proof. Memerlukan dependency activity-ktx 1.9.1.</div><div class="change-item-code">onBackPressedDispatcher.addCallback(this, object : OnBackPressedCallback(true) { ... })</div><div class="change-item-files"><span class="file-tag">SplashActivity.kt</span><span class="file-tag">ScanActivity.kt</span><span class="file-tag">app/build.gradle.kts</span></div></div></div>
+            <div class="change-item"><div class="change-item-icon">🗑️</div><div class="change-item-content"><div class="change-item-title">Komponen administrasi lama dihapus</div><div class="change-item-desc">Modul Device Admin lama yang tidak digunakan dihapus total untuk membersihkan dependensi yang tidak diperlukan dan menyederhanakan aplikasi.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">🏗️</div><div class="change-item-content"><div class="change-item-title">Penanganan tombol kembali diperbarui ke standar modern</div><div class="change-item-desc">Sistem penanganan tombol kembali dimigrasi ke cara yang lebih aman dan didukung resmi untuk Android 13 ke atas, menggantikan cara lama yang sudah tidak direkomendasikan.</div></div></div>
           </div>
         </div>
         <div class="change-group" data-type="fix">
           <div class="change-group-header"><span class="change-type type-fix">🔧 Bug Fix</span><span class="change-count">8 perbaikan</span></div>
           <div class="change-items">
-            <div class="change-item"><div class="change-item-icon">🔴</div><div class="change-item-content"><div class="change-item-title">[CRITICAL] App tidak muncul di drawer Samsung setelah install</div><div class="change-item-desc">SplashActivity memiliki intent-filter category HOME dan DEFAULT, menyebabkan launcher chooser dialog muncul di Samsung OneUI dan app tidak tampil di app drawer. Hanya LAUNCHER category yang diperlukan.</div><div class="change-item-code">- category android:name="android.intent.category.HOME"
-- category android:name="android.intent.category.DEFAULT"</div><div class="change-item-files"><span class="file-tag">AndroidManifest.xml</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">🔴</div><div class="change-item-content"><div class="change-item-title">[CRITICAL] Compile error: tvActionHint type mismatch</div><div class="change-item-desc">Layout mendeklarasikan tvActionHint sebagai LinearLayout, tapi kode Kotlin memanggil .text dan .setTextColor (method milik TextView). Menyebabkan compile error — app tidak bisa di-build sama sekali.</div><div class="change-item-code">android:id="@+id/tvActionHint" → pindah ke &lt;TextView&gt; bukan &lt;LinearLayout&gt;</div><div class="change-item-files"><span class="file-tag">activity_scan.xml</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">🟠</div><div class="change-item-content"><div class="change-item-title">[HIGH] hasUsageStatsPermission() selalu return true</div><div class="change-item-desc">Implementasi sebelumnya menggunakan queryUsageStats() dan cek apakah hasilnya null. Android return empty list (bukan null) ketika izin tidak diberikan — akibatnya tombol ujian bisa diaktifkan tanpa izin monitor. Fix: gunakan AppOpsManager.checkOpNoThrow().</div><div class="change-item-code">AppOpsManager.MODE_ALLOWED → izin benar-benar diberikan</div><div class="change-item-files"><span class="file-tag">SecurityManager.kt</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">🟠</div><div class="change-item-content"><div class="change-item-title">[HIGH] Notification icon tampil kotak aneh di status bar</div><div class="change-item-desc">R.mipmap.ic_launcher digunakan sebagai small notification icon. Android mengharuskan small icon berupa alpha-only monochrome drawable — icon berwarna ditampilkan sebagai blob abu-abu di status bar.</div><div class="change-item-code">setSmallIcon(R.drawable.ic_notification) ← vector monochrome</div><div class="change-item-files"><span class="file-tag">SecurityService.kt</span><span class="file-tag">drawable/ic_notification.xml ✨</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">🟡</div><div class="change-item-content"><div class="change-item-title">[MEDIUM] Keyboard popup recreate ExamActivity</div><div class="change-item-desc">Tanpa configChanges, perubahan keyboard menyebabkan Activity di-recreate — me-reset WebView dan memicu violation dari activity pause/resume yang tidak diinginkan.</div><div class="change-item-code">configChanges="orientation|screenSize|keyboardHidden|keyboard|navigation"</div><div class="change-item-files"><span class="file-tag">AndroidManifest.xml</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">🟡</div><div class="change-item-content"><div class="change-item-title">[MEDIUM] SplashActivity onBackPressed tidak ada @Deprecated annotation</div><div class="change-item-desc">ScanActivity sudah memiliki @Deprecated annotation, tapi SplashActivity tidak. Keduanya sekarang diganti dengan cara modern untuk konsistensi.</div><div class="change-item-files"><span class="file-tag">SplashActivity.kt</span><span class="file-tag">ScanActivity.kt</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">🟢</div><div class="change-item-content"><div class="change-item-title">[LOW] device_admin_description string orphan</div><div class="change-item-desc">Setelah AdminReceiver.kt and device_admin.xml dihapus, string ini tidak dipakai oleh siapapun. Menghapusnya menghilangkan Lint warning "unused string resource".</div><div class="change-item-files"><span class="file-tag">strings.xml</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">🟢</div><div class="change-item-content"><div class="change-item-title">[LOW] File Android Studio yang hilang</div><div class="change-item-desc">Project tidak menyertakan gradlew, gradlew.bat, gradle-wrapper.jar yang dibutuhkan Android Studio untuk sync project. Tanpa file ini, "Open in Android Studio" tidak bisa langsung build.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">🔴</div><div class="change-item-content"><div class="change-item-title">[CRITICAL] Aplikasi tidak muncul di menu utama Samsung setelah install</div><div class="change-item-desc">Aplikasi tidak tampil di app drawer Samsung dan memunculkan dialog pemilihan launcher yang tidak seharusnya. Sudah diperbaiki — aplikasi kini muncul normal di semua perangkat Samsung.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">🔴</div><div class="change-item-content"><div class="change-item-title">[CRITICAL] Aplikasi tidak bisa di-build sama sekali</div><div class="change-item-desc">Ada ketidaksesuaian tipe komponen UI yang menyebabkan compile error fatal — aplikasi sama sekali tidak bisa dikompilasi. Sudah diperbaiki dan build kembali normal.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">🟠</div><div class="change-item-content"><div class="change-item-title">[HIGH] Izin pemantauan penggunaan aplikasi selalu dianggap sudah diberikan</div><div class="change-item-desc">Bug logika menyebabkan sistem selalu menganggap izin sudah ada meskipun belum diberikan, sehingga tombol ujian bisa aktif tanpa izin yang seharusnya. Sudah diperbaiki dengan pengecekan yang lebih akurat.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">🟠</div><div class="change-item-content"><div class="change-item-title">[HIGH] Ikon notifikasi tampil sebagai kotak abu-abu di status bar</div><div class="change-item-desc">Ikon notifikasi yang digunakan tidak sesuai format yang diwajibkan Android untuk status bar. Sudah diganti dengan ikon monochrome yang tampil dengan benar di semua versi Android.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">🟡</div><div class="change-item-content"><div class="change-item-title">[MEDIUM] Munculnya keyboard me-reset halaman ujian</div><div class="change-item-desc">Ketika keyboard muncul di halaman ujian, aplikasi menganggapnya sebagai perubahan konfigurasi dan me-reset seluruh WebView. Sudah diperbaiki — keyboard kini bisa muncul tanpa mengganggu sesi ujian.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">🟡</div><div class="change-item-content"><div class="change-item-title">[MEDIUM] Inkonsistensi penanganan tombol kembali antar layar</div><div class="change-item-desc">Beberapa layar belum menggunakan metode yang sama untuk memblokir tombol kembali. Sekarang sudah diseragamkan di seluruh aplikasi.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">🟢</div><div class="change-item-content"><div class="change-item-title">[LOW] Pembersihan teks yang tidak digunakan</div><div class="change-item-desc">Setelah modul Device Admin lama dihapus, ada sumber daya teks yang tidak lagi digunakan dan menimbulkan peringatan. Sudah dibersihkan.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">🟢</div><div class="change-item-content"><div class="change-item-title">[LOW] File project yang diperlukan Android Studio disertakan</div><div class="change-item-desc">File konfigurasi project yang dibutuhkan untuk membuka di Android Studio tidak ikut terlampir. Sekarang sudah disertakan sehingga bisa langsung dibuka dan di-build.</div></div></div>
           </div>
         </div>
       </div>
@@ -753,17 +719,17 @@ footer {
         <div class="change-group" data-type="fix">
           <div class="change-group-header"><span class="change-type type-fix">🔧 Bug Fix</span><span class="change-count">4 perbaikan</span></div>
           <div class="change-items">
-            <div class="change-item"><div class="change-item-icon">🟠</div><div class="change-item-content"><div class="change-item-title">QR scan timing — violation sebelum ujian mulai</div><div class="change-item-desc">Saat kamera QR scan aktif, onWindowFocusChanged dipicu dan mencatat violation padahal ujian belum dimulai. Fix: tambah flag isRequestingPermission yang di-set sebelum requestPermissions().</div><div class="change-item-files"><span class="file-tag">ExamActivity.kt</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">🟠</div><div class="change-item-content"><div class="change-item-title">stopLockTask() tidak dipanggil di DoneActivity</div><div class="change-item-desc">Setelah ujian selesai, layar tetap terpinned karena ExamActivity bisa saja tidak di-destroy lebih dulu. DoneActivity.onCreate() sekarang selalu memanggil stopLockTask() sebagai safety net.</div><div class="change-item-files"><span class="file-tag">DoneActivity.kt</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">🟡</div><div class="change-item-content"><div class="change-item-title">Violation recording saat isKicking tidak diblokir</div><div class="change-item-desc">Saat countdown kick berjalan, event lain masih bisa menambah violation counter dan trigger kick countdown kedua. Fix: cek !isKicking di recordLocalViolation() dan semua KeyEvent handler.</div><div class="change-item-files"><span class="file-tag">ExamActivity.kt</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">🟡</div><div class="change-item-content"><div class="change-item-title">canScan hanya cek 2 syarat (connected &amp;&amp; pinned)</div><div class="change-item-desc">Tombol ujian bisa aktif meski integrity failed atau izin UsageStats belum diberikan. Sekarang semua 4 syarat wajib dipenuhi.</div><div class="change-item-code">val canScan = connected && pinned && integrity.passed && hasPerm</div><div class="change-item-files"><span class="file-tag">ScanActivity.kt</span></div></div></div>
+            <div class="change-item"><div class="change-item-icon">🟠</div><div class="change-item-content"><div class="change-item-title">Pelanggaran tercatat sebelum ujian dimulai saat scan QR</div><div class="change-item-desc">Ketika kamera untuk scan QR aktif, sistem keliru mencatat pelanggaran padahal ujian belum dimulai. Sekarang sistem menunggu konfirmasi ujian benar-benar aktif sebelum memantau pelanggaran.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">🟠</div><div class="change-item-content"><div class="change-item-title">Layar tetap terkunci setelah ujian selesai</div><div class="change-item-desc">Setelah ujian selesai, layar terkadang tetap terpinned (tidak bisa keluar). Sekarang kunci layar selalu dilepas secara otomatis ketika siswa sampai di halaman selesai.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">🟡</div><div class="change-item-content"><div class="change-item-title">Penghitung pelanggaran bisa ditrigger ganda saat countdown kick</div><div class="change-item-desc">Saat hitungan mundur kick berjalan, event lain masih bisa menambah pelanggaran dan memicu countdown kedua secara bersamaan. Sekarang hanya satu proses kick yang bisa berjalan dalam satu waktu.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">🟡</div><div class="change-item-content"><div class="change-item-title">Tombol ujian aktif meskipun syarat belum terpenuhi</div><div class="change-item-desc">Tombol mulai ujian bisa aktif meski izin pemantauan atau pengecekan keamanan belum terpenuhi. Sekarang semua 4 syarat wajib terpenuhi sebelum tombol bisa ditekan.</div></div></div>
           </div>
         </div>
         <div class="change-group" data-type="feat">
           <div class="change-group-header"><span class="change-type type-feat">✨ Fitur Baru</span><span class="change-count">2 penambahan</span></div>
           <div class="change-items">
-            <div class="change-item"><div class="change-item-icon">✨</div><div class="change-item-content"><div class="change-item-title">Input Link Manual</div><div class="change-item-desc">Selain scan QR, guru atau siswa bisa memasukkan URL ujian secara manual melalui dialog input dengan validasi URL otomatis.</div><div class="change-item-files"><span class="file-tag">ScanActivity.kt</span><span class="file-tag">activity_scan.xml</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">✨</div><div class="change-item-content"><div class="change-item-title">Pembatasan laporan pelanggaran VPN</div><div class="change-item-desc">Sebelumnya laporan VPN bisa dikirim tiap 2 detik. Sekarang dibatasi maksimal sekali per 30 detik untuk menghindari spam yang membanjiri log pelanggaran.</div><div class="change-item-files"><span class="file-tag">SecurityService.kt</span></div></div></div>
+            <div class="change-item"><div class="change-item-icon">✨</div><div class="change-item-content"><div class="change-item-title">Input Link Manual</div><div class="change-item-desc">Selain scan QR, guru atau siswa bisa memasukkan URL ujian secara manual melalui dialog input dengan validasi URL otomatis.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">✨</div><div class="change-item-content"><div class="change-item-title">Pembatasan laporan pelanggaran VPN</div><div class="change-item-desc">Sebelumnya laporan VPN bisa dikirim tiap 2 detik. Sekarang dibatasi maksimal sekali per 30 detik untuk menghindari spam yang membanjiri log pelanggaran.</div></div></div>
           </div>
         </div>
       </div>
@@ -786,20 +752,20 @@ footer {
         <div class="change-group" data-type="break">
           <div class="change-group-header"><span class="change-type type-break">⚠ Breaking</span><span class="change-count">2 perubahan</span></div>
           <div class="change-items">
-            <div class="change-item"><div class="change-item-icon">⚠️</div><div class="change-item-content"><div class="change-item-title">Device Admin API dihapus</div><div class="change-item-desc">Versi sebelumnya menggunakan Device Owner API yang memerlukan konfigurasi ADB khusus — sangat tidak praktis untuk lingkungan sekolah. Diganti dengan fitur kunci layar bawaan Android yang bisa diaktifkan langsung tanpa setup rumit.</div><div class="change-item-files"><span class="file-tag">SecurityManager.kt</span><span class="file-tag">AndroidManifest.xml</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">⚠️</div><div class="change-item-content"><div class="change-item-title">Tipe layanan latar belakang diubah</div><div class="change-item-desc">Tipe layanan latar belakang diubah ke yang lebih sesuai dengan fungsi sebenarnya, menghindari penolakan distribusi dan error di beberapa konfigurasi perangkat.</div><div class="change-item-files"><span class="file-tag">AndroidManifest.xml</span></div></div></div>
+            <div class="change-item"><div class="change-item-icon">⚠️</div><div class="change-item-content"><div class="change-item-title">Device Admin API dihapus</div><div class="change-item-desc">Versi sebelumnya menggunakan Device Owner API yang memerlukan konfigurasi ADB khusus — sangat tidak praktis untuk lingkungan sekolah. Diganti dengan fitur kunci layar bawaan Android yang bisa diaktifkan langsung tanpa setup rumit.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">⚠️</div><div class="change-item-content"><div class="change-item-title">Tipe layanan latar belakang diubah</div><div class="change-item-desc">Tipe layanan latar belakang diubah ke yang lebih sesuai dengan fungsi sebenarnya, menghindari penolakan distribusi dan error di beberapa konfigurasi perangkat.</div></div></div>
           </div>
         </div>
         <div class="change-group" data-type="security">
           <div class="change-group-header"><span class="change-type type-security">🔒 Security Fix</span><span class="change-count">1 perbaikan kritis</span></div>
           <div class="change-items">
-            <div class="change-item"><div class="change-item-icon">🔴</div><div class="change-item-content"><div class="change-item-title">[CRITICAL] Semua siswa ter-kick otomatis tanpa alasan</div><div class="change-item-desc">Bug logika menyebabkan sistem mendeteksi "pelanggaran overlay" pada semua perangkat setiap 30 detik, meskipun tidak ada pelanggaran nyata. Akibatnya semua siswa otomatis dikeluarkan dari sesi ujian tanpa alasan. Bug kritis ini sudah diperbaiki.</div><div class="change-item-files"><span class="file-tag">SecurityService.kt</span></div></div></div>
+            <div class="change-item"><div class="change-item-icon">🔴</div><div class="change-item-content"><div class="change-item-title">[CRITICAL] Semua siswa ter-kick otomatis tanpa alasan</div><div class="change-item-desc">Bug logika menyebabkan sistem mendeteksi "pelanggaran overlay" pada semua perangkat setiap 30 detik, meskipun tidak ada pelanggaran nyata. Akibatnya semua siswa otomatis dikeluarkan dari sesi ujian tanpa alasan. Bug kritis ini sudah diperbaiki.</div></div></div>
           </div>
         </div>
         <div class="change-group" data-type="feat">
           <div class="change-group-header"><span class="change-type type-feat">✨ Fitur Baru</span><span class="change-count">1 penambahan</span></div>
           <div class="change-items">
-            <div class="change-item"><div class="change-item-icon">✨</div><div class="change-item-content"><div class="change-item-title">Tombol Kunci Layar dengan konfirmasi</div><div class="change-item-desc">Tombol "Kunci Layar" yang jelas dengan dialog konfirmasi sebelum layar dikunci. Sistem menunggu konfirmasi dari Android sebelum melanjutkan ke proses ujian.</div><div class="change-item-files"><span class="file-tag">ScanActivity.kt</span></div></div></div>
+            <div class="change-item"><div class="change-item-icon">✨</div><div class="change-item-content"><div class="change-item-title">Tombol Kunci Layar dengan konfirmasi</div><div class="change-item-desc">Tombol "Kunci Layar" yang jelas dengan dialog konfirmasi sebelum layar dikunci. Sistem menunggu konfirmasi dari Android sebelum melanjutkan ke proses ujian.</div></div></div>
           </div>
         </div>
       </div>
@@ -822,11 +788,11 @@ footer {
         <div class="change-group" data-type="feat">
           <div class="change-group-header"><span class="change-type type-feat">✨ Fitur Baru</span><span class="change-count">5 penambahan</span></div>
           <div class="change-items">
-            <div class="change-item"><div class="change-item-icon">📷</div><div class="change-item-content"><div class="change-item-title">Preview Kamera Depan Live</div><div class="change-item-desc">Preview kamera depan muncul di sudut layar selama ujian berlangsung. Guru bisa memantau ekspresi dan arah pandang siswa secara visual. Otomatis disembunyikan jika kamera tidak tersedia.</div><div class="change-item-files"><span class="file-tag">ExamActivity.kt</span><span class="file-tag">activity_exam.xml</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">🛡️</div><div class="change-item-content"><div class="change-item-title">Monitor Aplikasi Terlarang di Latar Belakang</div><div class="change-item-desc">Layanan pengawasan berjalan di latar belakang, mengecek setiap 2 detik apakah ada aplikasi terlarang yang dibuka. Pelanggaran langsung dicatat dan diteruskan ke sistem peringatan.</div><div class="change-item-files"><span class="file-tag">SecurityService.kt</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">🌐</div><div class="change-item-content"><div class="change-item-title">Pembatasan Domain di Browser Ujian</div><div class="change-item-desc">Browser ujian hanya mengizinkan 9 domain Google yang disetujui. URL di luar daftar ini otomatis diblokir dan dicatat sebagai pelanggaran.</div><div class="change-item-files"><span class="file-tag">ExamActivity.kt</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">⚠️</div><div class="change-item-content"><div class="change-item-title">Sistem Pelanggaran dengan Hitungan Mundur</div><div class="change-item-desc">Penghitung pelanggaran muncul di status bar. Setelah 3 pelanggaran, muncul banner peringatan diikuti hitungan mundur 5 detik sebelum siswa dikeluarkan dari sesi ujian secara paksa.</div><div class="change-item-files"><span class="file-tag">ExamActivity.kt</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">💾</div><div class="change-item-content"><div class="change-item-title">Data Sesi Tersimpan Permanen</div><div class="change-item-desc">Semua data sesi ujian — URL, waktu mulai, jumlah pelanggaran, dan alasan kick — tersimpan secara lokal di perangkat. Data tetap ada meskipun aplikasi ditutup paksa atau HP di-restart.</div><div class="change-item-files"><span class="file-tag">AppState.kt</span></div></div></div>
+            <div class="change-item"><div class="change-item-icon">📷</div><div class="change-item-content"><div class="change-item-title">Preview Kamera Depan Live</div><div class="change-item-desc">Preview kamera depan muncul di sudut layar selama ujian berlangsung. Guru bisa memantau ekspresi dan arah pandang siswa secara visual. Otomatis disembunyikan jika kamera tidak tersedia.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">🛡️</div><div class="change-item-content"><div class="change-item-title">Monitor Aplikasi Terlarang di Latar Belakang</div><div class="change-item-desc">Layanan pengawasan berjalan di latar belakang, mengecek setiap 2 detik apakah ada aplikasi terlarang yang dibuka. Pelanggaran langsung dicatat dan diteruskan ke sistem peringatan.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">🌐</div><div class="change-item-content"><div class="change-item-title">Pembatasan Domain di Browser Ujian</div><div class="change-item-desc">Browser ujian hanya mengizinkan 9 domain Google yang disetujui. URL di luar daftar ini otomatis diblokir dan dicatat sebagai pelanggaran.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">⚠️</div><div class="change-item-content"><div class="change-item-title">Sistem Pelanggaran dengan Hitungan Mundur</div><div class="change-item-desc">Penghitung pelanggaran muncul di status bar. Setelah 3 pelanggaran, muncul banner peringatan diikuti hitungan mundur 5 detik sebelum siswa dikeluarkan dari sesi ujian secara paksa.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">💾</div><div class="change-item-content"><div class="change-item-title">Data Sesi Tersimpan Permanen</div><div class="change-item-desc">Semua data sesi ujian — URL, waktu mulai, jumlah pelanggaran, dan alasan kick — tersimpan secara lokal di perangkat. Data tetap ada meskipun aplikasi ditutup paksa atau HP di-restart.</div></div></div>
           </div>
         </div>
       </div>
@@ -849,10 +815,10 @@ footer {
         <div class="change-group" data-type="feat">
           <div class="change-group-header"><span class="change-type type-feat">✨ Rilis Pertama</span><span class="change-count">Fondasi aplikasi</span></div>
           <div class="change-items">
-            <div class="change-item"><div class="change-item-icon">🚀</div><div class="change-item-content"><div class="change-item-title">4 Layar Dasar Aplikasi</div><div class="change-item-desc">Alur dasar aplikasi: layar loading dengan pengecekan keamanan → setup dan scan QR → browser ujian → halaman selesai dengan ringkasan sesi.</div><div class="change-item-files"><span class="file-tag">SplashActivity.kt</span><span class="file-tag">ScanActivity.kt</span><span class="file-tag">ExamActivity.kt</span><span class="file-tag">DoneActivity.kt</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">🔒</div><div class="change-item-content"><div class="change-item-title">Pengecekan Keamanan Perangkat</div><div class="change-item-desc">Deteksi root, ADB aktif, mode developer, emulator, dan VPN dilakukan otomatis saat aplikasi dibuka. Blokir screenshot di semua layar.</div><div class="change-item-files"><span class="file-tag">SecurityManager.kt</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">📷</div><div class="change-item-content"><div class="change-item-title">Scanner QR Code</div><div class="change-item-desc">Scan QR token dari guru untuk membuka halaman ujian. URL divalidasi sebelum diteruskan ke browser ujian.</div><div class="change-item-files"><span class="file-tag">ScanActivity.kt</span></div></div></div>
-            <div class="change-item"><div class="change-item-icon">🔔</div><div class="change-item-content"><div class="change-item-title">Alarm Selesai Ujian</div><div class="change-item-desc">Alarm berbunyi selama 2.5 detik saat ujian selesai. Mendukung semua versi Android dari yang lama hingga terbaru.</div><div class="change-item-files"><span class="file-tag">ExamAlarmManager.kt</span></div></div></div>
+            <div class="change-item"><div class="change-item-icon">🚀</div><div class="change-item-content"><div class="change-item-title">4 Layar Dasar Aplikasi</div><div class="change-item-desc">Alur dasar aplikasi: layar loading dengan pengecekan keamanan → setup dan scan QR → browser ujian → halaman selesai dengan ringkasan sesi.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">🔒</div><div class="change-item-content"><div class="change-item-title">Pengecekan Keamanan Perangkat</div><div class="change-item-desc">Deteksi root, ADB aktif, mode developer, emulator, dan VPN dilakukan otomatis saat aplikasi dibuka. Blokir screenshot di semua layar.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">📷</div><div class="change-item-content"><div class="change-item-title">Scanner QR Code</div><div class="change-item-desc">Scan QR token dari guru untuk membuka halaman ujian. URL divalidasi sebelum diteruskan ke browser ujian.</div></div></div>
+            <div class="change-item"><div class="change-item-icon">🔔</div><div class="change-item-content"><div class="change-item-title">Alarm Selesai Ujian</div><div class="change-item-desc">Alarm berbunyi selama 2.5 detik saat ujian selesai. Mendukung semua versi Android dari yang lama hingga terbaru.</div></div></div>
           </div>
         </div>
       </div>
